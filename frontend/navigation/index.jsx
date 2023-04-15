@@ -7,7 +7,8 @@ import {
     ProfileScreen,
     FridgeScreen,
     RecipesScreen, 
-    RecipeDetailsScreen
+    RecipeDetailsScreen,
+    SignUpScreen
 } from '../screens';
 
 const FridgeStack = createStackNavigator();
@@ -48,6 +49,7 @@ const AppNavigation = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Main" component={BottomTabBarFunc} options={{ headerShown: false }}/>
       </Stack.Navigator>
       

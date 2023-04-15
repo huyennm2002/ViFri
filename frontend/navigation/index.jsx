@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
+    SignInScreen,
     HomeScreen,
     ItemScreen,
     ProfileScreen,
@@ -30,15 +31,26 @@ function RecipeStackScreen() {
         </RecipeStack.Navigator>
     )
 }
+const Stack = createStackNavigator();
 
-const AppNavigation = () => {
+function BottomTabBarFunc() {
     return (
-      <BottomTabBar.Navigator>
+        <BottomTabBar.Navigator>
         <BottomTabBar.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
         <BottomTabBar.Screen name="Fridge" component={FridgeStackScreen} options={{ headerShown: false }}/>
         <BottomTabBar.Screen name="Recipes" component={RecipeStackScreen} options={{ headerShown: false }}/>
         <BottomTabBar.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
       </BottomTabBar.Navigator>
+    )
+}
+
+const AppNavigation = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Main" component={BottomTabBarFunc} options={{ headerShown: false }}/>
+      </Stack.Navigator>
+      
     )
 }
 

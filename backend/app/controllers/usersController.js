@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
+import Item from '../models/item.js';
 
 const hashPassword = (password) => {
     const saltRounds = 10;
@@ -51,10 +52,10 @@ export const logIn = async (req, res) => {
     const { email, password } = req.body;
     User.getFromEmail(email, (err,user) => {
         if (err) res.status(500).send({message: "Internal Error"})
-        if (!user) res.status(401).send({message: "User does not exist!"})
-        if (checkPassword(password, user[0])) {
+        console.log(user);
+        if (user && checkPassword(password, user[0])) {
             const token = jwt.sign(
-                { user_id: user.id, email },
+                { user_id: user[0].id, email },
                 process.env.TOKEN_KEY,
                 { expiresIn: "2h" }
             )
@@ -69,7 +70,7 @@ export const logIn = async (req, res) => {
 export const getUserInfo = (req, res) => {
     const { token } = req.headers;
     const user = jwt.verify(token, process.env.TOKEN_KEY);
-    User.get(user_id, (err, data) => {
+    User.get(user.user_id, (err, data) => {
         if (err) {
             return res.status(500).send({message: "Cannot retrieve user info"})
         }
@@ -129,3 +130,23 @@ export const getUserInfo = (req, res) => {
 //         console.log(result);
 //     })
 // }
+
+export const getItemList = (req, res) => {
+    if (!req.body) {
+        return res.status(400).send({
+            message: "Content cannot be empty"
+        });
+    }
+
+    const { token } = req.headers;
+    const user = jwt.verify(token, process.env.TOKEN_KEY);
+
+    Item.get(user_id, (err, data) => {
+        if (err) {
+            return res.status(500).send({
+                message: "An error has occured"
+            })
+        }
+        return res.status(200).json(data);
+    })
+}

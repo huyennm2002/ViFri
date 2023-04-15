@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huyennm2002/ViFri.git"
@@ -15,5 +17,15 @@
   "bugs": {
     "url": "https://github.com/huyennm2002/ViFri/issues"
   },
-  "homepage": "https://github.com/huyennm2002/ViFri#readme"
+  "homepage": "https://github.com/huyennm2002/ViFri#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.2.1",
+    "sequelize": "^6.31.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
+  }
 }

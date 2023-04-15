@@ -15,7 +15,7 @@ const BottomTabBar = createBottomTabNavigator();
 function FridgeStackScreen () {
     return (
         <FridgeStack.Navigator>
-            <FridgeStack.Screen name="Fridge" component={FridgeScreen} options={{ headerShown: false }}/>
+            <FridgeStack.Screen name="FridgeStack" component={FridgeScreen} options={{ headerShown: false }}/>
             <FridgeStack.Screen name="Item" component={ItemScreen} />
         </FridgeStack.Navigator>
     );  

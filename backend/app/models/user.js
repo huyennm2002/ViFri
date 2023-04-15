@@ -50,15 +50,14 @@ User.update = (updated_user, id, result) => {
     })
 }
 
-User.getFromEmail = (email) => {
+User.getFromEmail = (email, result) => {
     let query = `SELECT * FROM users WHERE email = ?`;
     sql.query(query, [email], (err, res) => {
         if (err) {
             console.log("Cannot update: ", err);
-            throw err;
+            result(err,null);
         } else {
-            console.log("All users: ", res);
-            return res;
+            result(null,res);
         }
     })
 }

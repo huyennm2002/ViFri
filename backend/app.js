@@ -16,9 +16,8 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-app.post('/sign-up', (req, res) => { 
-    User.createUser(req, res) 
-})
+app.post('/sign-up', (req, res) => {User.createUser(req, res)})
+app.post('/log-in', (req, res) => {User.logIn(req, res)})
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {

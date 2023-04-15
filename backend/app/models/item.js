@@ -1,7 +1,6 @@
 import { query } from "express";
 import sql from "../../config/sql.js";
 
-
 const Item = function(item) {
     this.barcode = item.barcode;
     this.name = item.name;

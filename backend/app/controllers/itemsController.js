@@ -71,7 +71,7 @@ export const deleteItem = (req, res) => {
         });
     }
     
-    const { id } = req.params;
+    const { id } = req.query;
     Item.delete(id, (err, data) => {
         if (err) return res.status(500).send({message: "An error has occured"});
         return res.status(200).send({ message: "Successfully removed" });

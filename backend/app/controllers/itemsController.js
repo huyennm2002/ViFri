@@ -13,7 +13,7 @@ export const addItem = (req, res) => {
     const user = jwt.verify(token, process.env.TOKEN_KEY);
     console.log(user);
     const newItem = new Item({
-        barcode: '10111',
+        barcode: req.body.barcode,
         name: req.body.name,
         expiration: req.body.expiration,
         image: req.body.image,

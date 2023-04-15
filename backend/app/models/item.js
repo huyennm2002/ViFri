@@ -20,7 +20,6 @@ Item.create = (newItem, result) => {
             return;
         }
         result(null, res);
-        return;
     })
 }
 
@@ -32,19 +31,6 @@ Item.get = (id, result) => {
             result(err,null);
         } else {
             console.log("Item: ", res);
-            result(null,res);
-        }
-    })
-}
-
-Item.getList = (user_id, result) => {
-    let query = `SELECT * FROM items WHERE user_id = ?`;
-    sql.query(query, [user_id], (err, res) => {
-        if (err) {
-            console.log("Cannot get all items: ", err);
-            result(err,null);
-        } else {
-            console.log("User: ", res);
             result(null,res);
         }
     })
@@ -68,6 +54,29 @@ Item.delete = (id, result) => {
     sql.query(query, [id], (err, res) => {
         if (err) {
             console.log("Cannot delete");
+            result(err,null);
+        } else {
+            result(null,res);
+        }
+    })
+}
+
+Item.getList = (user_id, result) => {
+    let query = `SELECT * FROM items WHERE user_id = ?`;
+    sql.query(query, [user_id], (err, res) => {
+        if (err) {
+            result(err,null);
+        } else {
+            console.log("User: ", res);
+            result(null,res);
+        }
+    })
+}
+
+Item.getReminder = (user_id, result) => {
+    let query = `SELECT * FROM items WHERE user_id = ? and is_active = 1 AND expiration BETWEEN CURRENT_DATE() AND DATE_ADD(CURRENT_DATE(), INTERVAL 2 DAY) ORDER BY expiration ASC`
+    sql.query(query, [user_id], (err, res) => {
+        if (err) {
             result(err,null);
         } else {
             result(null,res);

@@ -38,16 +38,24 @@ export const updateUserInfo = (req, res) => {
 }
 
 export const getItemList = (req, res) => {
-    if (!req.body) {
-        return res.status(400).send({
-            message: "Content cannot be empty"
-        });
-    }
-
     const { token } = req.headers;
     const user = jwt.verify(token, process.env.TOKEN_KEY);
 
-    Item.get(user_id, (err, data) => {
+    Item.get(user.user_id, (err, data) => {
+        if (err) {
+            return res.status(500).send({
+                message: "An error has occured"
+            })
+        }
+        return res.status(200).json(data);
+    })
+}
+
+export const getReminderList = (req, res) => {
+    const { token } = req.headers;
+    
+    const user = jwt.verify(token, process.env.TOKEN_KEY);
+    Item.getReminder(user.user_id, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "An error has occured"

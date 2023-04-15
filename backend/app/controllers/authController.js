@@ -52,8 +52,7 @@ export const logIn = (req, res) => {
     const { email, password } = req.body;
     User.getFromEmail(email, (err,user) => {
         if (err) res.status(500).send({message: "Internal Error"})
-        console.log(user);
-        if (user && checkPassword(password, user[0])) {
+        if (user.length > 0 && checkPassword(password, user[0])) {
             const token = jwt.sign(
                 { user_id: user[0].id, email },
                 process.env.TOKEN_KEY,

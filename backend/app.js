@@ -6,6 +6,7 @@ import sql from './config/sql.js';
 import * as Auth from './app/controllers/authController.js'
 import * as User from './app/controllers/usersController.js';
 import * as Item from './app/controllers/itemsController.js';
+import { getRecipesList } from './app/services/recipeGenerator.js';
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,7 @@ app.get('/items', (req, res) => Item.getItemInfo(req, res))
 app.put('/items', (req, res) => Item.updateItemInfo(req, res))
 app.delete('/items', (req, res) => Item.deleteItem(req, res))
 
+app.get('/recipes', (req, res) => getRecipesList(req, res));
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

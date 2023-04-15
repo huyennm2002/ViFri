@@ -1,48 +1,58 @@
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import Item from '../models/item.js';
 
-function getRecipes() {
-  return axios.get('https://api.spoonacular.com/recipes/findByIngredients?apiKey=e921657faa8e45e8a2471e8c7d87062f&ingredients=apples,+flour,+sugar&number=5')
-    .then(response => {
-      const recipes = [];
-      const data = response.data;
-      data.forEach(recipe => {
-        const recipeObject = {
-          title: recipe.title,
-          image: recipe.image,
-          missedIngredients: [],
-          usedIngredients: []
-        };
-        if (recipe.missedIngredientCount <= 3 && recipe.usedIngredientCount >= 1) {
-          recipe.missedIngredients.forEach(ingredient => {
-            recipeObject.missedIngredients.push({
-              name: ingredient.name,
-              amount: ingredient.amount
-            });
-          });
-          recipe.usedIngredients.forEach(ingredient => {
-            recipeObject.usedIngredients.push({
-              name: ingredient.name,
-              amount: ingredient.amount
-            });
-          });
-          recipes.push(recipeObject);
+export const getRecipesList = (req, res) => {
+    const { token } = req.headers;
+    const user = jwt.verify(token, process.env.TOKEN_KEY);
+    Item.getList(user.user_id, (err, data) => {
+        if (err) {
+            return res.status(500).send({
+                message: "An error has occured"
+            })
         }
-      });
-      return recipes;
+        if (data.length == 0) return res.send({ message: "Your fridge is empty "});
+        const itemListString = data.map(i => i.name).join(',+')
+        getRecipes(itemListString).then(recipes => {
+            return res.json(recipes);
+        }).catch(error => {
+            return res.send(500).send({message: "Error"});
+        });
     })
-    .catch(error => {
-      console.error(error);
-    });
 }
 
-getRecipes()
-  .then(recipes => {
-    console.log(recipes);
-    // console.log(recipes[0].missedIngredients); // Log the missedIngredients array of the first recipe
-    // console.log(recipes[0].usedIngredients); // Log the usedIngredients array of the first recipe
-  })
-  .catch(error => {
-    console.error(error);
-  });
-        
+async function getRecipes(itemList) {
+    try {
+        const response = await axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=e921657faa8e45e8a2471e8c7d87062f&ingredients=${itemList}&number=5`)
+        const recipes = [];
+        const data = response.data;
+        data.forEach(recipe => {
+            const recipeObject = {
+                title: recipe.title,
+                image: recipe.image,
+                missedIngredients: [],
+                usedIngredients: []
+            };
+            if (recipe.missedIngredientCount <= 3 && recipe.usedIngredientCount >= 1) {
+                recipe.missedIngredients.forEach(ingredient => {
+                    recipeObject.missedIngredients.push({
+                    name: ingredient.name,
+                    amount: ingredient.amount
+                    });
+                });
+                recipe.usedIngredients.forEach(ingredient => {
+                    recipeObject.usedIngredients.push({
+                    name: ingredient.name,
+                    amount: ingredient.amount
+                    });
+                });
+                recipes.push(recipeObject);
+            }
+        });
+        console.log(recipes);
+        return recipes;
+    } catch(error)  {
+        console.error(error);
+    };
+}
        

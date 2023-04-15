@@ -25,7 +25,7 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      amount: {
+      servings: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

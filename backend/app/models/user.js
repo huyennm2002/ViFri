@@ -31,7 +31,7 @@ User.get = (id, result) => {
             console.log("Cannot update: ", err);
             result(err,null);
         } else {
-            console.log("All users: ", res);
+            console.log("User: ", res);
             result(null,res);
         }
     })

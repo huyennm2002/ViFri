@@ -10,14 +10,12 @@ const app = express();
 app.use(bodyParser.urlencoded({ extende: true }));
 app.use(bodyParser.json());
 app.use(cors());
-// app.use(express.json());
+app.use(express.json());
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
-
-app.post('/sign-up', (req, res) => {User.createUser(req, res)})
-app.post('/log-in', (req, res) => {User.logIn(req, res)})
+app.post('/sign-up', (req, res) => User.createUser(req, res));
+app.post('/log-in', (req, res) => User.logIn(req, res));
+app.get('/user', (req, res) => User.getUserInfo(req, res));
+app.put('/user', (req, res) => User.updateUserInfo(req, res));
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {

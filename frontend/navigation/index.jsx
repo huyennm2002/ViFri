@@ -5,11 +5,12 @@ import {
     ItemScreen,
     ProfileScreen,
     FridgeScreen,
-    ReminderScreen
+    RecipesScreen, 
+    RecipeDetailsScreen
 } from '../screens';
 
 const FridgeStack = createStackNavigator();
-
+const RecipeStack = createStackNavigator();
 const BottomTabBar = createBottomTabNavigator();
 
 function FridgeStackScreen () {
@@ -21,12 +22,21 @@ function FridgeStackScreen () {
     );  
 }
 
+function RecipeStackScreen() {
+    return (
+        <RecipeStack.Navigator>
+            <RecipeStack.Screen name="Recipes List" component={RecipesScreen} options={{ headerShown: false }}/>
+            <RecipeStack.Screen name="Recipe Details" component={RecipeDetailsScreen} options={{ headerShown: false }}/>
+        </RecipeStack.Navigator>
+    )
+}
+
 const AppNavigation = () => {
     return (
       <BottomTabBar.Navigator>
         <BottomTabBar.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
         <BottomTabBar.Screen name="Fridge" component={FridgeStackScreen} options={{ headerShown: false }}/>
-        <BottomTabBar.Screen name="Reminder" component={ReminderScreen} options={{ headerShown: false }}/>
+        <BottomTabBar.Screen name="Recipes" component={RecipeStackScreen} options={{ headerShown: false }}/>
         <BottomTabBar.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
       </BottomTabBar.Navigator>
     )

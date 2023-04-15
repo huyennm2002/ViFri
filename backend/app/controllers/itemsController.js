@@ -11,7 +11,6 @@ export const addItem = (req, res) => {
 
     const { token } = req.headers;
     const user = jwt.verify(token, process.env.TOKEN_KEY);
-    console.log(user);
     const newItem = new Item({
         barcode: req.body.barcode,
         name: req.body.name,
@@ -39,6 +38,7 @@ export const getItemInfo = (req, res) => {
             message: "Content cannot be empty"
         });
     }
+
     const { id } = req.query;
     Item.get(id, (err, data) => {
         if (err) {
@@ -58,7 +58,6 @@ export const updateItemInfo = (req, res) => {
     }
     
     const updatedInfo = req.body;
-
     Item.update(updatedInfo, updatedInfo.id, (err, data) => {
         if (err) return res.status(500).send({message: "An error has occured"});
         return res.status(200).send(updatedInfo);

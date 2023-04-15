@@ -3,6 +3,7 @@ import cors from "cors"
 import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import sql from './config/sql.js';
+import * as Auth from './app/controllers/authController.js'
 import * as User from './app/controllers/usersController.js';
 import * as Item from './app/controllers/itemsController.js';
 
@@ -14,8 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 //auth
-app.post('/sign-up', (req, res) => User.createUser(req, res));
-app.post('/log-in', (req, res) => User.logIn(req, res));
+app.post('/sign-up', (req, res) => Auth.createUser(req, res));
+app.post('/log-in', (req, res) => Auth.logIn(req, res));
+app.post('/log-out', (req, res) => Auth.logOut(req,res));
 
 //user
 app.get('/users', (req, res) => User.getUserInfo(req, res));

@@ -1,15 +1,14 @@
 import { query } from "express";
 import sql from "../../config/sql.js";
 
-const User = (user) => {
+const User = function(user){
     this.first_name = user.first_name;
     this.last_name = user.last_name;
-    this.email = user.last_name;
-    this.password = user.last_name;
+    this.email = user.email;
+    this.encrypted_password = user.encrypted_password;
     this.dob = user.dob;
-    this.phone = user.phone;
     this.avatar = user.avatar;
-    this.address = user.address;
+    this.provider = user.provider;
 }
 
 User.create = (newUser, result) => {
@@ -21,6 +20,7 @@ User.create = (newUser, result) => {
             return;
         }
         result(null, res);
+        return;
     })
 }
 

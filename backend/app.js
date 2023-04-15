@@ -22,7 +22,7 @@ app.post('/log-out', (req, res) => Auth.logOut(req,res));
 //user
 app.get('/users', (req, res) => User.getUserInfo(req, res));
 app.put('/users', (req, res) => User.updateUserInfo(req, res));
-app.get('/users/:id/items', (req, res) => User.getItemList(req, res));
+app.get('/users/items', (req, res) => User.getItemList(req, res));
 
 //item
 app.post('/items', (req, res) => Item.addItem(req, res));

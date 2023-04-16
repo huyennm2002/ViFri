@@ -1,6 +1,7 @@
 import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import * as SecureStore from 'expo-secure-store';
+import Header from '../components/Header';
 
 const HomeScreen = ({ navigation }) => {
   const item = async () => {
@@ -9,13 +10,16 @@ const HomeScreen = ({ navigation }) => {
   }
   item();
   return (
+    <View style={{ flex: 1 }}>
+      <Header></Header>
       <ScrollView style={styles.container}>
-      <Text style={styles.hometitle}>Welcome Back!</Text>
-      <Text style={styles.itemcounttitle}>Number of Items in Fridge: ???</Text>
-      <Text style={styles.itemcounttitle}>Number of items about to expire: ???</Text>
-    </ScrollView>
-   )
- }
+        <Text style={styles.hometitle}>Welcome Back!</Text>
+        <Text style={styles.itemcounttitle}>Number of Items in Fridge: ???</Text>
+        <Text style={styles.itemcounttitle}>Number of items about to expire: ???</Text>
+      </ScrollView>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -47,6 +51,6 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginTop: 15
   },
-  })
-  
-  export default HomeScreen
+})
+
+export default HomeScreen

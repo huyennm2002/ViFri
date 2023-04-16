@@ -10,9 +10,9 @@ import {
     ItemScreen,
     ProfileScreen,
     FridgeScreen,
-    RecipesScreen,
+    RecipesScreen, 
     RecipeDetailsScreen,
-    AddItemScreen,
+    AddItemScreen
 } from '../screens';
 
 const FridgeStack = createStackNavigator();
@@ -86,13 +86,13 @@ function BottomTabBarFunc() {
 
 const AppNavigation = () => {
     return (
-        
-        <Stack.Navigator>
-            <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Main" component={BottomTabBarFunc} options={{ headerShown: false }} />
-        </Stack.Navigator>
-    );
-};
+      <Stack.Navigator>
+        <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Main" component={BottomTabBarFunc} options={{ headerShown: false }}/>
+      </Stack.Navigator>
+      
+    )
+}
 
 export default AppNavigation;

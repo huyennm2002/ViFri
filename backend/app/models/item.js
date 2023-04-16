@@ -55,18 +55,19 @@ Item.delete = (id, result) => {
             console.log("Cannot delete");
             result(err,null);
         } else {
+            console.log(res);
             result(null,res);
         }
     })
 }
 
 Item.getList = (user_id, result) => {
-    let query = `SELECT * FROM items WHERE user_id = ?`;
+    let query = `SELECT * FROM items WHERE user_id = ? AND is_active = true`;
     sql.query(query, [user_id], (err, res) => {
         if (err) {
             result(err,null);
         } else {
-            console.log("User: ", res);
+            console.log("Item list: ", res);
             result(null,res);
         }
     })

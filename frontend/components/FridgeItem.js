@@ -16,15 +16,16 @@ const styles = StyleSheet.create({
 const FridgeItem = ({ fridgeData }) => {
     return (
         <View key={fridgeData.id} style={styles.container}>
-            <ListItem
-            >
+            <ListItem>
                 <Image source={fridgeData.imageUrl} style={{ height: 100, width: 100 }} />
                 <ListItem.Content>
-                    <ListItem.Subtitle>{fridgeData.name}</ListItem.Subtitle>
-                    <ListItem.Subtitle>{fridgeData.expiryDate}</ListItem.Subtitle>
-                    <ListItem.Subtitle>{fridgeData.serving}</ListItem.Subtitle>
+                    <ListItem.Subtitle>
+                        <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>{fridgeData.name}</Text>
+                    </ListItem.Subtitle>
+                    <ListItem.Subtitle>{`Exp: ${fridgeData.expiryDate}`}</ListItem.Subtitle>
+                    <ListItem.Subtitle>{`Serving: ${fridgeData.serving}`}</ListItem.Subtitle>
                 </ListItem.Content>
-                <Icon name='edit' type='material' onPress={() => console.log('Edit pressed')} />
+                <Icon name="edit" type="material" onPress={() => console.log('Edit pressed')} />
                 <Icon name="trash-can-outline" type="material-community" color="grey" onPress={() => console.log('Delete pressed')} />
             </ListItem>
         </View>

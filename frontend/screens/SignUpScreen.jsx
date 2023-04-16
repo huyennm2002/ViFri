@@ -1,10 +1,10 @@
-import { Button, View, Text, StyleSheet, Image, Alert } from 'react-native'
+import { Button, View, Text, StyleSheet, Image, Alert, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { isEmpty } from 'lodash';
 import { LOCAL_IP } from '../constants/constants.js';
-import  DismissKeyboardView  from '../components/DismissKeyboardView.jsx';
+import DismissKeyboardView from '../components/DismissKeyboardView.jsx';
 
 const SignUpScreen = ({ navigation }) => {
     const [data, setData] = useState({
@@ -15,9 +15,9 @@ const SignUpScreen = ({ navigation }) => {
     });
 
     const handleChange = (key, value) => {
-        setData(prev => ({ ...prev, [key]: value}));
+        setData(prev => ({ ...prev, [key]: value }));
     }
-    
+
     const checkEmpty = () => {
         return isEmpty(data.first_name) || isEmpty(data.last_name) || isEmpty(data.email) || isEmpty(data.password);
     }
@@ -31,7 +31,7 @@ const SignUpScreen = ({ navigation }) => {
             url: `http://${LOCAL_IP}:3005/signup`,
             method: "POST",
             data,
-            headers: { "Access-Control-Allow-Origin": "*"}
+            headers: { "Access-Control-Allow-Origin": "*" }
         }).then((res) => {
             setData({
                 first_name: '',
@@ -49,62 +49,63 @@ const SignUpScreen = ({ navigation }) => {
     return (
         <DismissKeyboardView style={styles.container}>
             <Text style={styles.brandname}>Welcome to ViFri!</Text>
-            <Text style={styles.newusertext}>Enter a username and password to get started</Text>
-            <TextInput style={styles.textinput}
-                placeholder="First Name"
-                onChangeText={(e) => handleChange('first_name', e)}
-            />
-            <TextInput style={styles.textinput}
-                placeholder="Last Name"
-                onChangeText={(e) => handleChange('last_name', e)}
-            />
-            <TextInput style={styles.textinput}
-                placeholder="Email"
-                onChangeText={(e) => handleChange('email', e)}
-            />
-            <TextInput style={styles.textinput}
-                placeholder="Password"
-                onChangeText={(e) => handleChange('password', e)}
-                secureTextEntry={true}
-            />
-            <Button
-                title="Create New Account"
-                onPress={handleSubmit}
-            />
-           <Image style={styles.logo}
-                source={{
-                    uri: 'https://www.galanz.com/us/wp-content/uploads/2020/10/GLR31TBEER2_45%C2%B0.png',
-                }}
-            />
+            <Text style={styles.newusertext}>Please sign up to get started</Text>
+            <View style={styles.form}>
+                <View style={styles.inputContainer}>
+                    <TextInput style={styles.input}
+                        placeholder="First Name"
+                        onChangeText={(e) => handleChange('first_name', e)}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput style={styles.input}
+                        placeholder="Last Name"
+                        onChangeText={(e) => handleChange('last_name', e)}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput style={styles.input}
+                        placeholder="Email"
+                        onChangeText={(e) => handleChange('email', e)}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput style={styles.input}
+                        placeholder="Password"
+                        onChangeText={(e) => handleChange('password', e)}
+                        secureTextEntry={true}
+                    />
+                </View>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                    <Text style={styles.buttonText}>Create new account</Text>
+                </TouchableOpacity>
+                <Image style={styles.logo}
+                    source={{
+                        uri: 'https://www.galanz.com/us/wp-content/uploads/2020/10/GLR31TBEER2_45%C2%B0.png',
+                    }}
+                />
+            </View>
         </DismissKeyboardView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      padding: 1,
-      backgroundColor: '#fff',
-      justifyContent: "center",
-      alignItems: "center"
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    textinput: {
-      padding: 10,
-      backgroundColor: '#fff',
-      justifyContent: "center",
-      alignItems: "center",
-      borderWidth: 2,
-      backgroundColor: '#f2f2f2',
-      borderRadius: 23,
-      margin: 10,
-      width: 290,
-      fontSize: 20,
-      height: 60
+    input: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 4,
+        padding: 10,
+        fontSize: 16,
     },
     brandname: {
         fontWeight: 'bold',
-        fontSize: 40,
-        margin: 10
+        fontSize: 45,
+        marginTop: 50
     },
     logo: {
         width: 200,
@@ -115,7 +116,22 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         margin: 10
-    }
-  });
+    },
+    inputContainer: {
+        marginBottom: 20,
+    },
+    button: {
+        backgroundColor: 'tomato',
+        padding: 10,
+        borderRadius: 4,
+        alignItems: 'center',
+        margin: 3,
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+});
 
-  export default SignUpScreen
+export default SignUpScreen

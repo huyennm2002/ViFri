@@ -26,22 +26,23 @@ const SignInScreen = ({ navigation }) => {
     }
 
     const handleSubmit = async () => {
-        if (checkEmpty()) {
-            Alert.alert('All fields are required');
-            return;
-        }
-        axios({
-            url: `http://${LOCAL_IP}:3005/login`,
-            method: "POST",
-            data,
-            headers: { "Access-Control-Allow-Origin": "*"}
-        }).then((res) => {
-            console.log(res.data);
-            saveToken(res.data);
-            navigation.navigate("Main");
-        }).catch((err) => {
-            Alert.alert(err.message);
-        })
+        // if (checkEmpty()) {
+        //     Alert.alert('All fields are required');
+        //     return;
+        // }
+        // axios({
+        //     url: `http://${LOCAL_IP}:3005/login`,
+        //     method: "POST",
+        //     data,
+        //     headers: { "Access-Control-Allow-Origin": "*"}
+        // }).then((res) => {
+        //     console.log(res.data);
+        //     saveToken(res.data);
+        //     navigation.navigate("Main");
+        // }).catch((err) => {
+        //     Alert.alert(err.message);
+        // })
+        navigation.navigate("Main")
     }
 
     return (
@@ -99,7 +100,9 @@ const styles = StyleSheet.create({
     brandname: {
         fontWeight: 'bold',
         fontSize: 75,
-        margin: 20
+        margin: 20, 
+        fontFamily:'Baskerville',
+        fontStyle:'italic'
     },
     logo: {
         width: 300,

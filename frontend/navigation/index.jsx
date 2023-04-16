@@ -17,14 +17,13 @@ import {
 
 const FridgeStack = createStackNavigator();
 const RecipeStack = createStackNavigator();
-const AddStack = createStackNavigator();
 const BottomTabBar = createBottomTabNavigator();
 
 function FridgeStackScreen() {
     return (
         <FridgeStack.Navigator>
             <FridgeStack.Screen
-                name="FridgeStack"
+                name="Back"
                 component={FridgeScreen}
                 options={{ headerShown: false }}
             />
@@ -53,6 +52,13 @@ function RecipeStackScreen() {
 
 const Stack = createStackNavigator();
 
+const headerOptions = ({ navigation, route }) => ({
+    headerTitle: (props) => <LogoTitle {...props} />,
+    headerRight: () => (
+      <Button title="Update count" />
+    ),
+  })
+
 function BottomTabBarFunc() {
     return (
         <BottomTabBar.Navigator
@@ -76,7 +82,7 @@ function BottomTabBarFunc() {
                 tabBarActiveTintColor: 'tomato', // Sets the active tab icon color
                 tabBarInactiveTintColor: 'gray', // Sets the inactive tab icon color
             })}>
-            <BottomTabBar.Screen name="Home" component={HomeScreen} />
+            <BottomTabBar.Screen name="Home" component={HomeScreen}/>
             <BottomTabBar.Screen name="Fridge" component={FridgeStackScreen} />
             <BottomTabBar.Screen name="Recipes" component={RecipeStackScreen} />
             <BottomTabBar.Screen name="Profile" component={ProfileScreen} />
@@ -86,7 +92,7 @@ function BottomTabBarFunc() {
 
 const AppNavigation = () => {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{gestureEnabled: false}}>
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Main" component={BottomTabBarFunc} options={{ headerShown: false }}/>

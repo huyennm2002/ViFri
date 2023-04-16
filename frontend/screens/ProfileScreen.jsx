@@ -73,7 +73,6 @@ const ProfileScreen = () => {
         <Button
                 title="Submit"
         />
-        
       </SafeAreaView>
      )
    }

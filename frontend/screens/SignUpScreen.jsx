@@ -27,6 +27,7 @@ const SignUpScreen = ({ navigation }) => {
             Alert.alert('All fields are required');
             return;
         }
+        console.log(data);
         axios({
             url: `http://${LOCAL_IP}:3005/signup`,
             method: "POST",

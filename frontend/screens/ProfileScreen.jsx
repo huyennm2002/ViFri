@@ -68,7 +68,12 @@ const ProfileScreen = () => {
           <View style={styles.form}>
             <View style={styles.inputContainer}>
               <TextInput style={styles.input}
-                placeholder="Username"
+                placeholder="First name"
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput style={styles.input}
+                placeholder="Last name"
               />
             </View>
             <View style={styles.inputContainer}>

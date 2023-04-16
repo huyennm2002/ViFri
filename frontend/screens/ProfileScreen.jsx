@@ -1,4 +1,4 @@
-import { Button, View, Text, StyleSheet, SafeAreaView, TextInput } from 'react-native'
+import { Button, View, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
 import { React, useState, useCallback } from 'react';
 import { SelectList } from 'react-native-dropdown-select-list';
 import DismissKeyboardView from '../components/DismissKeyboardView.jsx';
@@ -7,28 +7,21 @@ import Header from '../components/Header.js';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 1,
-    backgroundColor: '#fff',
-    justifyContent: "center",
-    alignItems: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textinput: {
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 4,
     padding: 10,
-    backgroundColor: '#fff',
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    backgroundColor: '#f2f2f2',
-    borderRadius: 23,
-    margin: 15,
-    width: 290,
-    fontSize: 20,
-    height: 60
+    fontSize: 16,
   },
   brandname: {
     fontWeight: 'bold',
     fontSize: 36,
-    margin: 10
+    marginBottom: 30,
+    marginLeft: 20,
   },
   dropdown: {
     paddingHorizontal: 10,
@@ -39,7 +32,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     paddingBottom: 10
-  }
+  },
+  inputContainer: {
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: 'tomato',
+    padding: 10,
+    borderRadius: 4,
+    alignItems: 'center',
+    margin: 3,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
 
 const ProfileScreen = () => {
@@ -56,28 +64,34 @@ const ProfileScreen = () => {
       <Header></Header>
       <DismissKeyboardView style={styles.container}>
         <SafeAreaView >
-          <Text style={styles.brandname}>Update info</Text>
-          <TextInput style={styles.textinput}
-            placeholder="Username"
-          />
-          <TextInput style={styles.textinput}
-            placeholder="Email"
-          />
-          <View style={styles.dropdown}>
-            <Text style={styles.dropdownHeader}>Days before expiration</Text>
-            <SelectList
-              setSelected={(val) => setSelected(val)}
-              onSelect={() => alert(selected)}
-              data={offsetValues}
-              save="value"
-              label="Categories"
-              defaultOption={{ label: "1", value: "1" }}
-              search={false}
-            />
+          <Text style={styles.brandname}>Update Info</Text>
+          <View style={styles.form}>
+            <View style={styles.inputContainer}>
+              <TextInput style={styles.input}
+                placeholder="Username"
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput style={styles.input}
+                placeholder="Email"
+              />
+            </View>
+            <View style={styles.dropdown}>
+              <Text style={styles.dropdownHeader}>Days before expiration</Text>
+              <SelectList
+                setSelected={(val) => setSelected(val)}
+                onSelect={() => alert(selected)}
+                data={offsetValues}
+                save="value"
+                label="Categories"
+                defaultOption={{ label: "1", value: "1" }}
+                search={false}
+              />
+            </View>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
           </View>
-          <Button
-            title="Submit"
-          />
         </SafeAreaView>
       </DismissKeyboardView>
     </View>

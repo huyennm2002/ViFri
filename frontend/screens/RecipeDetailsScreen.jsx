@@ -30,11 +30,11 @@ const RecipeDetailsScreen = ({ route, navigation }) => {
           <Card.Image source={{ uri: recipe.image }} />
           <Card.FeaturedSubtitle style={styles.subTitle} h4>Used Ingredients: </Card.FeaturedSubtitle>
           <View>
-            {recipe.usedIngredients.map(item => <Text style={styles.item}>• {item.name}</Text>)}
+            {recipe.usedIngredients.map(item => <Text key={item.name} style={styles.item}>• {item.name}</Text>)}
           </View>
           <Card.FeaturedSubtitle style={styles.subTitle} h4> Missing Ingredients: </Card.FeaturedSubtitle>
           <View>
-            {recipe.missedIngredients.map(item => <Text style={styles.item}>• {item.name}</Text>)}
+            {recipe.missedIngredients.map(item => <Text key={item.name} style={styles.item}>• {item.name}</Text>)}
           </View>
           <Card.FeaturedSubtitle style={styles.subTitle} h4> Instructions: </Card.FeaturedSubtitle>
           <Text style={styles.instructions}>

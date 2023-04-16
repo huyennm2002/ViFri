@@ -80,7 +80,6 @@ const ProfileScreen = () => {
               <Text style={styles.dropdownHeader}>Days before expiration</Text>
               <SelectList
                 setSelected={(val) => setSelected(val)}
-                onSelect={() => alert(selected)}
                 data={offsetValues}
                 save="value"
                 label="Categories"

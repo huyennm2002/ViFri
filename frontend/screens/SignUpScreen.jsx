@@ -16,7 +16,7 @@ const SignUpScreen = ({ navigation }) => {
             <Button
                 title="Create New Account"
                 onPress={() => navigation.navigate("Main")}
-                />
+            />
            <Image style={styles.logo}
                 source={{
                     uri: 'https://www.galanz.com/us/wp-content/uploads/2020/10/GLR31TBEER2_45%C2%B0.png',

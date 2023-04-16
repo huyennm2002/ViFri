@@ -1,6 +1,7 @@
 import { Button, View, Text, StyleSheet, SafeAreaView, TextInput } from 'react-native'
 import {React, useState, useCallback} from 'react';
-import { SelectList } from 'react-native-dropdown-select-list'
+import { SelectList } from 'react-native-dropdown-select-list';
+import  DismissKeyboardView  from '../components/DismissKeyboardView.jsx';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,7 +51,8 @@ const ProfileScreen = () => {
     ]
     const [selected, setSelected] = useState("");
     return (
-      <SafeAreaView style={styles.container}>
+      <DismissKeyboardView style={styles.container}>
+        <SafeAreaView >
         <Text style={styles.brandname}>Update info</Text>
         <TextInput style={styles.textinput}
                 placeholder="Username"
@@ -73,7 +75,9 @@ const ProfileScreen = () => {
         <Button
                 title="Submit"
         />
-      </SafeAreaView>
+        </SafeAreaView>
+      </DismissKeyboardView>
+      
      )
    }
 

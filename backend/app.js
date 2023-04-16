@@ -12,13 +12,17 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.urlencoded({ extende: true }));
 app.use(bodyParser.json());
-app.use(cors());
+
+var corsOptions = {
+  origin: '*'
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 
 //auth
-app.post('/sign-up', (req, res) => Auth.createUser(req, res));
-app.post('/log-in', (req, res) => Auth.logIn(req, res));
-app.post('/log-out', (req, res) => Auth.logOut(req,res));
+app.post('/signup', (req, res) => Auth.createUser(req, res));
+app.post('/login', (req, res) => Auth.logIn(req, res));
+app.post('/logout', (req, res) => Auth.logOut(req,res));
 
 //user
 app.get('/users', (req, res) => User.getUserInfo(req, res));

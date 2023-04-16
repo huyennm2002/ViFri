@@ -4,11 +4,6 @@ import * as SecureStore from 'expo-secure-store';
 import Header from '../components/Header';
 
 const HomeScreen = ({ navigation }) => {
-  const item = async () => {
-    const res = await SecureStore.getItemAsync('token');
-    if (res) console.log(res);
-  }
-  item();
   return (
     <View style={{ flex: 1 }}>
       <Header></Header>
@@ -57,7 +52,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 390,
     height: 300,
-    margin: 10
+    margin: 'auto'
   }
 })
 

@@ -23,7 +23,7 @@ function FridgeStackScreen() {
     return (
         <FridgeStack.Navigator>
             <FridgeStack.Screen
-                name="FridgeStack"
+                name="Back"
                 component={FridgeScreen}
                 options={{ headerShown: false }}
             />

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { ListItem, Icon } from '@rneui/themed';
 import { FlatList } from 'react-native-gesture-handler';
-
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     container: {
@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
 })
 
 const FridgeItem = ({ fridgeData, handleDelete }) => {
+
+    const navigation = useNavigation();
+
+    const handleOpenItem = () => {
+        navigation.navigate("Item", {fridgeData})
+    }
     return (
         <View key={fridgeData.id} style={styles.container}>
             <ListItem>
@@ -25,7 +31,7 @@ const FridgeItem = ({ fridgeData, handleDelete }) => {
                     <ListItem.Subtitle>{`Exp: ${fridgeData.expiryDate}`}</ListItem.Subtitle>
                     <ListItem.Subtitle>{`Serving: ${fridgeData.serving}`}</ListItem.Subtitle>
                 </ListItem.Content>
-                <Icon name="edit" type="material" onPress={() => console.log('Edit pressed')} />
+                <Icon name="edit" type="material" onPress={handleOpenItem} />
                 <Icon name="trash-can-outline" type="material-community" color="grey" onPress={() => handleDelete(fridgeData.id)} />
             </ListItem>
         </View>

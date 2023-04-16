@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
 import { fridgeDatas } from '../data';
 import axios from 'axios';
+import Header from '../components/Header';
 
 const AddItemScreen = ({ navigation }) => {
     const [data, setData] = useState({

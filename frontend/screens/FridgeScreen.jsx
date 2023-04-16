@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
     buttonContainer: {
         marginTop: 20,
     },
+    button: {
+        backgroundColor: 'tomato',
+        padding: 10,
+        borderRadius: 4,
+        alignItems: 'center',
+    }
 });
 
 const FridgeScreen = ({ navigation }) => {

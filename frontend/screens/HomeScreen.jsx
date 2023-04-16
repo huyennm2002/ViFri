@@ -1,7 +1,13 @@
 import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import * as SecureStore from 'expo-secure-store';
 
 const HomeScreen = ({ navigation }) => {
+  const item = async () => {
+    const res = await SecureStore.getItemAsync('token');
+    if (res) console.log(res);
+  }
+  item();
   return (
       <ScrollView style={styles.container}>
       <Text style={styles.hometitle}>Welcome Back!</Text>
@@ -10,7 +16,6 @@ const HomeScreen = ({ navigation }) => {
     </ScrollView>
    )
  }
-
 
 const styles = StyleSheet.create({
   container: {

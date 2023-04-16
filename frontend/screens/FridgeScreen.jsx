@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, StyleSheet, ScrollView, Button } from 'react-native';
 import FridgeItem from '../components/FridgeItem';
 import { fridgeDatas } from '../data';
@@ -19,7 +19,32 @@ const styles = StyleSheet.create({
     }
 });
 
+
 const FridgeScreen = ({ navigation }) => {
+    const [fridgeItems, setFridgeItems] = useState(fridgeDatas)
+    const handleDelete = (id) => {
+        const newFridgeItems = fridgeItems.filter((item) => item.id != id);
+        setFridgeItems(newFridgeItems);
+    }
+
+    const handleUpdate = (newFridgeItem) => {
+        const updatedFridgeItems = fridgeItems.map((item) => {
+            if (item.id == newFridgeItem.id) {
+                return {
+                    ...item,
+                    serving: newFridgeItem.serving,
+                    expiryDate: newFridgeItem.expiryDate
+                }
+            }
+            else {
+                return item
+            }
+        })
+        console.log(updatedFridgeItems)
+        setFridgeItems(updatedFridgeItems);
+        console.log(fridgeItems)
+    }
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -29,7 +54,7 @@ const FridgeScreen = ({ navigation }) => {
                         onPress={() => navigation.navigate("AddScreen")}
                     />
                 </View>
-                {fridgeDatas.map(fridgeData => <FridgeItem key={fridgeData.id} fridgeData={fridgeData} />)}
+                {fridgeItems.map(fridgeData => <FridgeItem key={fridgeData.id} fridgeData={fridgeData} handleDelete={handleDelete} handleUpdate={handleUpdate}/>)}
             </View>
         </ScrollView>
     );

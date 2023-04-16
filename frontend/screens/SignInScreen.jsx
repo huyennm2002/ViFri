@@ -42,7 +42,7 @@ const SignInScreen = ({ navigation }) => {
         // }).catch((err) => {
         //     Alert.alert(err.message);
         // })
-        navigation.navigate("Main");
+        navigation.navigate("Main")
     }
 
     return (

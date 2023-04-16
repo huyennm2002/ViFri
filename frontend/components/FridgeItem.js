@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
 
 })
 
-const FridgeItem = ({ fridgeData }) => {
+const FridgeItem = ({ fridgeData, handleDelete, handleUpdate }) => {
 
     const navigation = useNavigation();
 
     const handleOpenItem = () => {
-        navigation.navigate("Item", {fridgeData})
+        navigation.navigate("Item", {fridgeData, handleUpdate})
     }
     return (
         <View key={fridgeData.id} style={styles.container}>
@@ -32,7 +32,7 @@ const FridgeItem = ({ fridgeData }) => {
                     <ListItem.Subtitle>{`Serving: ${fridgeData.serving}`}</ListItem.Subtitle>
                 </ListItem.Content>
                 <Icon name="edit" type="material" onPress={handleOpenItem} />
-                <Icon name="trash-can-outline" type="material-community" color="grey" onPress={() => console.log('Delete pressed')} />
+                <Icon name="trash-can-outline" type="material-community" color="grey" onPress={() => handleDelete(fridgeData.id)} />
             </ListItem>
         </View>
     );

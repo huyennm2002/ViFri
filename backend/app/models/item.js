@@ -12,6 +12,7 @@ const Item = function(item) {
 
 Item.create = (newItem, result) => {
     let query = "INSERT INTO items SET ?"
+    console.log(newItem);
     sql.query(query, newItem, (err, res)=> {
         if (err) {
             console.log("Failed to create add new item: ", err);

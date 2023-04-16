@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash';
 import * as SecureStore from 'expo-secure-store';
 import { TextInput } from 'react-native-gesture-handler';
 import { LOCAL_IP } from '../constants/constants.js';
+import  DismissKeyboardView  from '../components/DismissKeyboardView.jsx';
 
 const SignInScreen = ({ navigation }) => {
     const [data, setData] = useState({
@@ -44,7 +45,7 @@ const SignInScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <DismissKeyboardView style={styles.container}>
             <Text style={styles.brandname}>ViFri</Text>
             <TextInput style={styles.textinput}
                 placeholder="Email"
@@ -69,18 +70,18 @@ const SignInScreen = ({ navigation }) => {
                     uri: 'https://www.galanz.com/us/wp-content/uploads/2020/10/GLR31TBEER2_45%C2%B0.png',
                 }}
             />
-        </View>
+        </DismissKeyboardView>
     )
 }
 
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      padding: 1,
-      backgroundColor: '#fff',
-      justifyContent: "center",
-      alignItems: "center"
+        flex: 1,
+        padding: 1,
+        backgroundColor: '#fff',
+        justifyContent: "center",
+        alignItems: "center"
     },
     textinput: {
       padding: 10,
@@ -107,4 +108,4 @@ const styles = StyleSheet.create({
     },
   });
 
-  export default SignInScreen
+export default SignInScreen

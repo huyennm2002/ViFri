@@ -26,23 +26,22 @@ const SignInScreen = ({ navigation }) => {
     }
 
     const handleSubmit = async () => {
-        // if (checkEmpty()) {
-        //     Alert.alert('All fields are required');
-        //     return;
-        // }
-        // axios({
-        //     url: `http://${LOCAL_IP}:3005/login`,
-        //     method: "POST",
-        //     data,
-        //     headers: { "Access-Control-Allow-Origin": "*"}
-        // }).then((res) => {
-        //     console.log(res.data);
-        //     saveToken(res.data);
-        //     navigation.navigate("Main");
-        // }).catch((err) => {
-        //     Alert.alert(err.message);
-        // })
-        navigation.navigate("Main")
+        if (checkEmpty()) {
+            Alert.alert('All fields are required');
+            return;
+        }
+        axios({
+            url: `http://${LOCAL_IP}:3005/login`,
+            method: "POST",
+            data,
+            headers: { "Access-Control-Allow-Origin": "*"}
+        }).then((res) => {
+            console.log(res.data);
+            saveToken(res.data);
+            navigation.navigate("Main");
+        }).catch((err) => {
+            Alert.alert(err.message);
+        })
     }
 
     return (

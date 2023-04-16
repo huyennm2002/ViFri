@@ -44,7 +44,7 @@ const RecipeCard = ({recipe}) => {
             <Pressable onPress={handleOpenRecipe}>
                 <Card>
                     <Card.Title style={styles.title}>
-                        {recipe.name}
+                        {recipe.title}
                     </Card.Title>
                     <Card.Image source={{uri:recipe.image}}/>
                     <Text style={styles.text}>

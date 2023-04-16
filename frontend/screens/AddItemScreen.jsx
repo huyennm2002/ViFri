@@ -1,40 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
-import { fridgeDatas } from '../data';
+import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
-import Header from '../components/Header';
+import { fridgeDatas } from '../data';
+import { LOCAL_IP } from '../constants/constants.js';
+import DatePicker from 'react-native-datepicker';
 
 const AddItemScreen = ({ navigation }) => {
     const [data, setData] = useState({
         name: '',
-        expiryDate: '',
+        expiration: '',
         serving: '',
     });
+    const [token, setToken] = useState('');
 
     const handleChange = (key, value) => {
         setData(prev => ({ ...prev, [key]: value }));
     };
+    console.log(token);
+    const [date, setDate] = useState('09-10-2020');
 
     const handleSubmit = () => {
         axios({
-            url: 'http://10.104.164.3:3005/items',
+            url: `http://${LOCAL_IP}:3005/items`,
             method: 'POST',
             data,
-            headers: { 'Access-Control-Allow-Origin': '*' , token},
-        })
-            .then(res => {
-                setData({
-                    name: '',
-                    expiryDate: '',
-                    serving: '',
-                });
-                Alert.alert('Successfully added item!');
-                navigation.replace('FridgeStack');
-            })
-            .catch(err => {
-                Alert.alert(err.message);
+            headers: { 'Access-Control-Allow-Origin': '*' , token: token},
+        }).then(res => {
+            setData({
+                name: '',
+                expiration: '',
+                servings: '',
             });
+            Alert.alert('Successfully added item!');
+            navigation.navigate('Back');
+        })
+        .catch(err => {
+            Alert.alert(err.message);
+        });
     };
+
+    useEffect(() => {
+        async function getToken() {
+            const res = await SecureStore.getItemAsync('token');
+            if (res) {
+                console.log(res);
+                setToken(res);
+            }
+        }
+        getToken();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -52,7 +67,7 @@ const AddItemScreen = ({ navigation }) => {
                     <TextInput
                         style={styles.input}
                         placeholder="Expiry Date"
-                        onChangeText={text => handleChange('expiryDate', text)}
+                        onChangeText={text => handleChange('expiration', text)}
                         value={data.expiryDate}
                     />
                 </View>
@@ -60,8 +75,8 @@ const AddItemScreen = ({ navigation }) => {
                     <TextInput
                         style={styles.input}
                         placeholder="Serving"
-                        onChangeText={text => handleChange('serving', text)}
-                        value={data.serving}
+                        onChangeText={text => handleChange('servings', text)}
+                        value={data.servings}
                     />
                 </View>
                 <TouchableOpacity style={styles.button} onPress={handleSubmit}>

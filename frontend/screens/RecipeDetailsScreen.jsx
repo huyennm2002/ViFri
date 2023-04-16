@@ -24,17 +24,17 @@ const RecipeDetailsScreen = ({ route, navigation }) => {
       <SafeAreaView>
         <Card>
           <Card.Title h1>
-            {recipe.name}
+            {recipe.title}
           </Card.Title>
           <Card.Divider />
           <Card.Image source={{ uri: recipe.image }} />
           <Card.FeaturedSubtitle style={styles.subTitle} h4>Used Ingredients: </Card.FeaturedSubtitle>
           <View>
-            {recipe.usedItems.map(item => <Text style={styles.item}>• {item}</Text>)}
+            {recipe.usedIngredients.map(item => <Text style={styles.item}>• {item.name}</Text>)}
           </View>
           <Card.FeaturedSubtitle style={styles.subTitle} h4> Missing Ingredients: </Card.FeaturedSubtitle>
           <View>
-            {recipe.missedItems.map(item => <Text style={styles.item}>• {item}</Text>)}
+            {recipe.missedIngredients.map(item => <Text style={styles.item}>• {item.name}</Text>)}
           </View>
           <Card.FeaturedSubtitle style={styles.subTitle} h4> Instructions: </Card.FeaturedSubtitle>
           <Text style={styles.instructions}>

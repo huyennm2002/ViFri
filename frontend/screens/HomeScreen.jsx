@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.hometitle}>Welcome Back!</Text>
         <Text style={styles.itemcounttitle}>Number of Items in Fridge: 4</Text>
         <Text style={styles.itemcounttitle}>Number of items about to expire: 1</Text>
-        <Text style={styles.itemcounttitle}>Number of days with wasted food: 3</Text>
+        <Text style={styles.itemcounttitle}>Number of days with non-wasted food: 3</Text>
       </ScrollView>
       <Image style={styles.logo}
         source={{
@@ -40,9 +40,8 @@ const styles = StyleSheet.create({
   },
   itemcounttitle: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 17,
     textAlign: 'center',
-    backgroundColor: '#fff',
     marginRight: 25,
     marginLeft: 25,
     marginTop: 15,
@@ -51,7 +50,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     textAlign: 'center',
-    backgroundColor: '#fff',
     marginRight: 25,
     marginLeft: 25,
     marginTop: 15

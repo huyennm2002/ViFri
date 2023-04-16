@@ -6,6 +6,7 @@ import RecipesScreen from './RecipesScreen'
 import RecipeDetailsScreen from './RecipeDetailsScreen'
 import SignInScreen from './SignInScreen'
 import SignUpScreen from './SignUpScreen'
+import AddItemScreen from './AddItemScreen'
 
 export {
   HomeScreen,
@@ -15,5 +16,6 @@ export {
   RecipesScreen,
   RecipeDetailsScreen,
   SignInScreen,
-  SignUpScreen
+  SignUpScreen,
+  AddItemScreen
 }

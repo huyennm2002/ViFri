@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { isEmpty } from 'lodash';
 import { LOCAL_IP } from '../constants/constants.js';
+import  DismissKeyboardView  from '../components/DismissKeyboardView.jsx';
 
 const SignUpScreen = ({ navigation }) => {
     const [data, setData] = useState({
@@ -46,7 +47,7 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <DismissKeyboardView style={styles.container}>
             <Text style={styles.brandname}>Welcome to ViFri!</Text>
             <Text style={styles.newusertext}>Enter a username and password to get started</Text>
             <TextInput style={styles.textinput}
@@ -75,7 +76,7 @@ const SignUpScreen = ({ navigation }) => {
                     uri: 'https://www.galanz.com/us/wp-content/uploads/2020/10/GLR31TBEER2_45%C2%B0.png',
                 }}
             />
-        </View>
+        </DismissKeyboardView>
     )
 }
 

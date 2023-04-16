@@ -2,6 +2,7 @@ import { Button, View, Text, StyleSheet, Image, Alert } from 'react-native'
 import React, { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 import { LOCAL_IP } from '../constants/constants.js';
 
 const SignUpScreen = ({ navigation }) => {
@@ -15,8 +16,16 @@ const SignUpScreen = ({ navigation }) => {
     const handleChange = (key, value) => {
         setData(prev => ({ ...prev, [key]: value}));
     }
+    
+    const checkEmpty = () => {
+        return isEmpty(data.first_name) || isEmpty(data.last_name) || isEmpty(data.email) || isEmpty(data.password);
+    }
 
     const handleSubmit = () => {
+        if (checkEmpty()) {
+            Alert.alert('All fields are required');
+            return;
+        }
         axios({
             url: `http://${LOCAL_IP}:3005/signup`,
             method: "POST",

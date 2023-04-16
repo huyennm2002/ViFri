@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
 })
 
-const FridgeItem = ({ fridgeData }) => {
+const FridgeItem = ({ fridgeData, handleDelete }) => {
     return (
         <View key={fridgeData.id} style={styles.container}>
             <ListItem>
@@ -26,7 +26,7 @@ const FridgeItem = ({ fridgeData }) => {
                     <ListItem.Subtitle>{`Serving: ${fridgeData.serving}`}</ListItem.Subtitle>
                 </ListItem.Content>
                 <Icon name="edit" type="material" onPress={() => console.log('Edit pressed')} />
-                <Icon name="trash-can-outline" type="material-community" color="grey" onPress={() => console.log('Delete pressed')} />
+                <Icon name="trash-can-outline" type="material-community" color="grey" onPress={() => handleDelete(fridgeData.id)} />
             </ListItem>
         </View>
     );

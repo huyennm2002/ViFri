@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
 
 })
 
-const FridgeItem = ({ fridgeData, handleDelete }) => {
+const FridgeItem = ({ fridgeData, handleDelete, handleUpdate }) => {
 
     const navigation = useNavigation();
 
     const handleOpenItem = () => {
-        navigation.navigate("Item", {fridgeData})
+        navigation.navigate("Item", {fridgeData, handleUpdate})
     }
     return (
         <View key={fridgeData.id} style={styles.container}>

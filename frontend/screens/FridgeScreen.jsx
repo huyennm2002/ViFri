@@ -24,9 +24,25 @@ const FridgeScreen = ({ navigation }) => {
     const [fridgeItems, setFridgeItems] = useState(fridgeDatas)
     const handleDelete = (id) => {
         const newFridgeItems = fridgeItems.filter((item) => item.id != id);
-        console.log(newFridgeItems.length)
         setFridgeItems(newFridgeItems);
-        console.log(fridgeItems.length)
+    }
+
+    const handleUpdate = (newFridgeItem) => {
+        const updatedFridgeItems = fridgeItems.map((item) => {
+            if (item.id == newFridgeItem.id) {
+                return {
+                    ...item,
+                    serving: newFridgeItem.serving,
+                    expiryDate: newFridgeItem.expiryDate
+                }
+            }
+            else {
+                return item
+            }
+        })
+        console.log(updatedFridgeItems)
+        setFridgeItems(updatedFridgeItems);
+        console.log(fridgeItems)
     }
 
     return (
@@ -38,7 +54,7 @@ const FridgeScreen = ({ navigation }) => {
                         onPress={() => navigation.navigate("AddScreen")}
                     />
                 </View>
-                {fridgeItems.map(fridgeData => <FridgeItem key={fridgeData.id} fridgeData={fridgeData} handleDelete={handleDelete} />)}
+                {fridgeItems.map(fridgeData => <FridgeItem key={fridgeData.id} fridgeData={fridgeData} handleDelete={handleDelete} handleUpdate={handleUpdate}/>)}
             </View>
         </ScrollView>
     );

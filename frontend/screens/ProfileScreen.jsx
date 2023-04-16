@@ -63,8 +63,7 @@ const ProfileScreen = () => {
         <View style={styles.dropdown}>
           <Text style={styles.dropdownHeader}>Days before expiration</Text>
           <SelectList 
-          setSelected={(val) => setSelected(val)}
-          onSelect={() => alert(selected)}  
+          setSelected={(val) => setSelected(val)}  
           data={offsetValues} 
           save="value"
           label="Categories"
@@ -73,7 +72,7 @@ const ProfileScreen = () => {
           />
         </View>
         <Button
-                title="Submit"
+            title="Submit"
         />
         </SafeAreaView>
       </DismissKeyboardView>

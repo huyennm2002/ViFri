@@ -56,7 +56,9 @@ const styles = StyleSheet.create({
     brandname: {
         fontWeight: 'bold',
         fontSize: 75,
-        margin: 20
+        margin: 20, 
+        fontFamily:'Baskerville',
+        fontStyle:'italic'
     },
     logo: {
         width: 300,

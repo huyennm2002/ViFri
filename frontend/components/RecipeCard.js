@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Text, Pressable, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from '@rneui/themed';
@@ -40,7 +40,7 @@ const RecipeCard = ({recipe}) => {
     const navigation = useNavigation();
 
     return (
-        <View style={styles.view}>
+        <ScrollView style={styles.view}>
             <Pressable onPress={handleOpenRecipe}>
                 <Card>
                     <Card.Title style={styles.title}>
@@ -58,7 +58,7 @@ const RecipeCard = ({recipe}) => {
                     </View>
                 </Card>
             </Pressable>
-        </View>
+        </ScrollView>
     );
 }
 

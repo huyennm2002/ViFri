@@ -23,7 +23,7 @@ export const getRecipesList = (req, res) => {
 
 async function getRecipes(itemList) {
     try {
-        const response = await axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=e921657faa8e45e8a2471e8c7d87062f&ingredients=${itemList}&number=5`)
+        const response = await axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=bb896ca7411a407bb3f3bd96ec379022&ingredients=${itemList}&number=5`)
         const recipes = [];
         const data = response.data;
         data.forEach(recipe => {

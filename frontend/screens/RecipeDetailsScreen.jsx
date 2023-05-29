@@ -1,6 +1,7 @@
 import { Card } from '@rneui/base';
 import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import Header from '../components/Header';
 const RecipeDetailsScreen = ({ route, navigation }) => {
   const { recipe } = route.params;
@@ -19,7 +20,7 @@ const RecipeDetailsScreen = ({ route, navigation }) => {
   });
 
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }}>
       <Header />
       <SafeAreaView>
         <Card>
@@ -42,7 +43,7 @@ const RecipeDetailsScreen = ({ route, navigation }) => {
           </Text>
         </Card>
       </SafeAreaView>
-    </View>
+    </ScrollView>
 
   )
 }

@@ -2,14 +2,17 @@ import express from 'express';
 import cors from "cors"
 import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
-import sql from './config/sql.js';
+import multer from 'multer';
 import * as Auth from './app/controllers/authController.js'
 import * as User from './app/controllers/usersController.js';
 import * as Item from './app/controllers/itemsController.js';
 import { getRecipesList } from './app/services/recipeGenerator.js';
+import { handleUpload } from './app/services/fileHandler.js';
 
 dotenv.config();
 const app = express();
+const upload = multer({dest: 'uploads/'})
+
 app.use(bodyParser.urlencoded({ extende: true }));
 app.use(bodyParser.json());
 
@@ -20,7 +23,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 //auth
-app.post('/signup', (req, res) => Auth.createUser(req, res));
+app.post('/signup', upload.single('avatar'), async (req, res) => Auth.createUser(req, res));
 app.post('/login', (req, res) => Auth.logIn(req, res));
 app.post('/logout', (req, res) => Auth.logOut(req,res));
 

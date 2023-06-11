@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
+import { downloadFileS3, handleUpload } from '../services/fileHandler.js';
 
 const hashPassword = (password) => {
     const saltRounds = 10;
@@ -20,19 +21,22 @@ export const createUser = (req, res) => {
         })
         return;
     }
-    User.getFromEmail(req.body.email, (err,data) => {
+    User.getFromEmail(req.body.email.toLowerCase(), async (err,data) => {
         if (err) res.status(500).send({message: "Internal Error"})
         if (data.length > 0) {
-            console.log(data);
             return res.status(409).send({message: "User already exist!"})
+        }
+        let avatarKey;
+        if (req.file) {
+            avatarKey = await handleUpload(req.file);
         }
         const newUser = new User({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
             encrypted_password: hashPassword(req.body.password),
-            dob: req.body.dob,
-            avatar: req.body.avatar,
+            dob: new Date(req.body.dob),
+            avatar: avatarKey || null,
         })
         User.create(newUser, (err, data) => {
             if (err) {
@@ -60,7 +64,8 @@ export const logIn = (req, res) => {
             )
             return res.status(200).send(token);
         }
-        return res.status(401).send("Invalid Credentials");
+        console.log(req.body);
+        return res.status(401).send({message: "Invalid Credentials"});
     });
 }
 

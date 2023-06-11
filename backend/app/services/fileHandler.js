@@ -1,4 +1,4 @@
-import S3 from 'aws-sdk/clients/s3.js';
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3"
 import fs from 'fs';
 import util from 'util';
 
@@ -8,21 +8,23 @@ const region = process.env.AWS_BUCKET_REGION;
 const accessKeyId = process.env.AWS_ACCESS_KEY;
 const secretAccessKey = process.env.AWS_SECRET_KEY;
 
-const s3 = new S3({
+const s3 = new S3Client({
     region,
-    accessKeyId,
-    secretAccessKey,
+    credentials: {
+        accessKeyId,
+        secretAccessKey
+    }
 })
 
 //upload function
-const uploadFileS3 = (file) => {
+const uploadFileS3 = (file, key) => {
     const fileStream = fs.createReadStream(file.path);
-    const uploadParams = {
+    const uploadParams = new PutObjectCommand({
         Bucket: bucketName,
         Body: fileStream,
-        Key: file.filename,
-    }
-    return s3.upload(uploadParams).promise()
+        Key: key,
+    })
+    return s3.send(uploadParams)
 }
 
 //downloadFile
@@ -33,15 +35,17 @@ const downloadFileS3 = (fileKey) => {
     }
     return s3.getObject(downloadParams).createReadStream();
 }
+const getFileUrl = async (key) => {
 
-const handleUpload = async (file) => {
+}
+
+const handleUploadAvatar = async (file, key) => {
     try {
-        const result = await uploadFileS3(file);
-        await unlinkFile(file.path);
-        return result.Key;
+        const result = await uploadFileS3(file, key);
+        unlinkFile(file.path);
     } catch(e) {
-        console.log("Cannot upload file");
+        console.log(e);
     }
 }
 
-export { handleUpload, downloadFileS3 }
+export { handleUploadAvatar, downloadFileS3 }

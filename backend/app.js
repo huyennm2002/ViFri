@@ -7,7 +7,6 @@ import * as Auth from './app/controllers/authController.js'
 import * as User from './app/controllers/usersController.js';
 import * as Item from './app/controllers/itemsController.js';
 import { getRecipesList } from './app/services/recipeGenerator.js';
-import { handleUpload } from './app/services/fileHandler.js';
 
 dotenv.config();
 const app = express();

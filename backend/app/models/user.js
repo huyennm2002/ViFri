@@ -19,7 +19,7 @@ User.create = (newUser, result) => {
             result(err, null);
             return;
         }
-        result(null, res);
+        result(null, res.insertId);
         return;
     })
 }

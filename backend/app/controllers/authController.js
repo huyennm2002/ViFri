@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
-import { downloadFileS3, handleUpload } from '../services/fileHandler.js';
+import { downloadFileS3, handleUploadAvatar } from '../services/fileHandler.js';
 
 const hashPassword = (password) => {
     const saltRounds = 10;
@@ -21,30 +21,30 @@ export const createUser = (req, res) => {
         })
         return;
     }
-    User.getFromEmail(req.body.email.toLowerCase(), async (err,data) => {
+    User.getFromEmail(req.body.email.toLowerCase(), (err,data) => {
         if (err) res.status(500).send({message: "Internal Error"})
         if (data.length > 0) {
             return res.status(409).send({message: "User already exist!"})
-        }
-        let avatarKey;
-        if (req.file) {
-            avatarKey = await handleUpload(req.file);
         }
         const newUser = new User({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
             encrypted_password: hashPassword(req.body.password),
-            dob: new Date(req.body.dob),
-            avatar: avatarKey || null,
+            dob: new Date(req.body.dob) || null,
+            avatar: null,
         })
-        User.create(newUser, (err, data) => {
+        User.create(newUser, async (err, data) => {
             if (err) {
                 return res.status(500).send({
                     message: err.message || "An error has occured while creating new user"
                 })
             } else {
-                console.log(newUser);
+                const avatarKey = `avatar_${data}`;
+                if (req.file) {
+                    await handleUploadAvatar(req.file, avatarKey);
+                    User.update({...newUser, avatar: avatarKey}, data, (error, res) => {})
+                }
                 return res.status(200).json(newUser);
             }
         })
@@ -62,15 +62,7 @@ export const logIn = (req, res) => {
                 process.env.TOKEN_KEY,
                 { expiresIn: "2h" }
             )
-            const result = {
-                first_name: user[0].first_name,
-                last_name: user[0].last_name,
-                email: user[0].email,
-                dob: user[0].dob,
-                avatar: user[0].avatar,
-                token
-            }
-            return res.status(200).send(result);
+            return res.status(200).send(token);
         }
         return res.status(401).send({message: "Invalid Credentials"});
     });

@@ -11,7 +11,14 @@ export const getUserInfo = (req, res) => {
         if (err) {
             return res.status(500).send({message: "Cannot retrieve user info"})
         }
-        return res.status(200).json(data[0]);
+        const result = {
+            id: data[0].id,
+            first_name: data[0].first_name,
+            last_name: data[0].last_name,
+            email: data[0].email,
+            avatar: data[0].avatar
+        }
+        return res.status(200).json(result);
     })
 }
 

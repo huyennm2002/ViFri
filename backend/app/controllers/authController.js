@@ -40,7 +40,7 @@ export const createUser = (req, res) => {
                     message: err.message || "An error has occured while creating new user"
                 })
             } else {
-                const avatarKey = `avatar_${data}`;
+                const avatarKey = `avatar_${data}.jpg`;
                 if (req.file) {
                     await handleUploadAvatar(req.file, avatarKey);
                     User.update({...newUser, avatar: avatarKey}, data, (error, res) => {})

@@ -35,9 +35,6 @@ const downloadFileS3 = (fileKey) => {
     }
     return s3.getObject(downloadParams).createReadStream();
 }
-const getFileUrl = async (key) => {
-
-}
 
 const handleUploadAvatar = async (file, key) => {
     try {

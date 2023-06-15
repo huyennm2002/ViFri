@@ -2,17 +2,17 @@ import { query } from "express";
 import sql from "../../config/sql.js";
 
 const Item = function(item) {
-    this.barcode = item.barcode;
     this.name = item.name;
-    this.expiration = item.expiration;
     this.image = item.image;
-    this.servings = item.servings;
+    this.quantity = item.quantity;
+    this.unit = item.unit;
+    this.expiration = item.expiration;
+    this.grocery_product_id = item.grocery_product_id;
     this.user_id = item.user_id;
 }
 
 Item.create = (newItem, result) => {
     let query = "INSERT INTO items SET ?"
-    console.log(newItem);
     sql.query(query, newItem, (err, res)=> {
         if (err) {
             console.log("Failed to create add new item: ", err);

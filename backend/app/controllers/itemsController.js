@@ -11,14 +11,13 @@ export const addItem = (req, res) => {
 
     const { token } = req.headers;
     const user = jwt.verify(token, process.env.TOKEN_KEY);
-    console.log(req.body);
     const newItem = new Item({
-        barcode: req.body.barcode || '11111',
         name: req.body.name,
+        image: '',
+        quantity: req.body.quantity,
+        unit: req.body.unit,
         expiration: req.body.expiration,
-        image: req.body.image,
-        servings: req.body.servings,
-        is_active: 1,
+        grocery_product_id: null,
         user_id: user.user_id
     })
 

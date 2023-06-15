@@ -1,5 +1,6 @@
 import Item from "../models/item.js";
 import jwt from 'jsonwebtoken';
+import { handleUploadFile } from "../services/fileHandler.js";
 
 export const addItem = (req, res) => {
     if (!req.body) {
@@ -8,12 +9,15 @@ export const addItem = (req, res) => {
         })
         return;
     }
-
     const { token } = req.headers;
+    let imageUrl = '';
+    if (req.file) {
+        imageUrl = handleUploadFile(req.file, req.file.filename);
+    }
     const user = jwt.verify(token, process.env.TOKEN_KEY);
     const newItem = new Item({
         name: req.body.name,
-        image: '',
+        image: imageUrl,
         quantity: req.body.quantity,
         unit: req.body.unit,
         expiration: req.body.expiration,

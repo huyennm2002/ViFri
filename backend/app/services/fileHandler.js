@@ -36,13 +36,15 @@ const downloadFileS3 = (fileKey) => {
     return s3.getObject(downloadParams).createReadStream();
 }
 
-const handleUploadAvatar = async (file, key) => {
+const handleUploadFile = async (file, key = '') => {
     try {
-        const result = await uploadFileS3(file, key);
+        await uploadFileS3(file, key);
         unlinkFile(file.path);
+        const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${key}`
+        return fileUrl;
     } catch(e) {
-        console.log(e);
+        return '';
     }
 }
 
-export { handleUploadAvatar, downloadFileS3 }
+export { handleUploadFile, downloadFileS3 }

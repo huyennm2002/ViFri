@@ -56,7 +56,6 @@ Item.delete = (id, result) => {
             console.log("Cannot delete");
             result(err,null);
         } else {
-            console.log(res);
             result(null,res);
         }
     })

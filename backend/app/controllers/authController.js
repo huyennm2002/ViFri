@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
-import { downloadFileS3, handleUploadAvatar } from '../services/fileHandler.js';
+import { handleUploadFile } from '../services/fileHandler.js';
 
 const hashPassword = (password) => {
     const saltRounds = 10;
@@ -34,7 +34,7 @@ export const createUser = (req, res) => {
             dob: new Date(req.body.dob) || null,
             avatar: null,
         })
-        User.create(newUser, async (err, data) => {
+        User.create(newUser, (err, data) => {
             if (err) {
                 return res.status(500).send({
                     message: err.message || "An error has occured while creating new user"
@@ -42,14 +42,15 @@ export const createUser = (req, res) => {
             } else {
                 const avatarKey = `avatar_${data}.jpg`;
                 if (req.file) {
-                    await handleUploadAvatar(req.file, avatarKey);
-                    User.update({...newUser, avatar: avatarKey}, data, (error, res) => {})
+                    const result = handleUploadFile(req.file, avatarKey);
+                    if (result) {
+                        User.update({...newUser, avatar: avatarKey}, data, (error, res) => {})
+                    }
                 }
                 return res.status(200).json(newUser);
             }
         })
-    });
-    
+    });  
 };
 
 export const logIn = (req, res) => {

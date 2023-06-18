@@ -19,12 +19,12 @@ Item.create = (newItem, result) => {
             result(err, null);
             return;
         }
-        result(null, res);
+        return result(null, res);
     })
 }
 
 Item.get = (id, result) => {
-    let query = `SELECT * FROM items WHERE id = ?`;
+    let query = `SELECT id, name, image, quantity, unit, expiration, grocery_product_id, added_time, is_active, user_id FROM items WHERE id = ?`;
     sql.query(query, [id], (err, res) => {
         if (err) {
             console.log("Cannot get: ", err);
@@ -49,20 +49,8 @@ Item.update = (updated_info, id, result) => {
     })
 }
 
-Item.delete = (id, result) => {
-    let query = `DELETE FROM items WHERE id = ?`;
-    sql.query(query, [id], (err, res) => {
-        if (err) {
-            console.log("Cannot delete");
-            result(err,null);
-        } else {
-            result(null,res);
-        }
-    })
-}
-
-Item.getList = (user_id, result) => {
-    let query = `SELECT * FROM items WHERE user_id = ? AND is_active = true`;
+Item.getActiveItemList = (user_id, result) => {
+    let query = `SELECT id, name, image, quantity, unit, expiration, grocery_product_id FROM items WHERE user_id = ? AND is_active = true`;
     sql.query(query, [user_id], (err, res) => {
         if (err) {
             result(err,null);

@@ -48,7 +48,7 @@ export const getItemList = (req, res) => {
     const { token } = req.headers;
     const user = jwt.verify(token, process.env.TOKEN_KEY);
 
-    Item.get(user.user_id, (err, data) => {
+    Item.getActiveItemList(user.user_id, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "An error has occured"

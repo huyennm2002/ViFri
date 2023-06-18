@@ -13,7 +13,7 @@ export const addItem = (req, res) => {
     if (req.file) {
         imageUrl = handleUploadFile(req.file, req.file.filename);
     }
-    const user = getAuthorization(req.headers)
+    const { user_id } = getAuthorization(req.headers)
     const newItem = new Item({
         name: req.body.name,
         image: imageUrl,
@@ -21,7 +21,7 @@ export const addItem = (req, res) => {
         unit: req.body.unit,
         expiration: req.body.expiration,
         grocery_product_id: null,
-        user_id: user.user_id
+        user_id
     })
 
     Item.create(newItem, (err, data) => {
@@ -41,7 +41,7 @@ export const getItemInfo = (req, res) => {
             message: "Content cannot be empty"
         });
     }
-    const user = getAuthorization(req.headers);
+    const { user_id } = getAuthorization(req.headers);
     const { id } = req.query;
     Item.get(id, (err, data) => {
         if (err) {
@@ -49,7 +49,7 @@ export const getItemInfo = (req, res) => {
                 message: "An error has occured"
             })
         }
-        if (data[0].user_id === user.user_id) {
+        if (data[0].user_id === user_id) {
             return res.status(200).json(data[0]);
         }
         return res.status(403).end();
@@ -62,7 +62,7 @@ export const updateItemInfo = (req, res) => {
             message: "Content cannot be empty"
         });
     }
-    const user = getAuthorization(req.headers);
+    const { user_id } = getAuthorization(req.headers);
     const updatedInfo = req.body;
     Item.get(updatedInfo.id, (err, data) => {
         if (err) {
@@ -70,7 +70,7 @@ export const updateItemInfo = (req, res) => {
                 message: "An error has occured"
             })
         }
-        if (data[0].user_id !== user.user_id) {
+        if (data[0].user_id !== user_id) {
             return res.status(403).end();
         }
     })
@@ -87,7 +87,7 @@ export const deleteItem = (req, res) => {
             message: "Content cannot be empty"
         });
     }
-    const user = getAuthorization(req.headers);
+    const { user_id } = getAuthorization(req.headers);
     const { id } = req.query;
     Item.get(id, (err, data) => {
         if (err) {
@@ -95,7 +95,7 @@ export const deleteItem = (req, res) => {
                 message: "An error has occured"
             })
         }
-        if (data[0].user_id !== user.user_id) {
+        if (data[0].user_id !== user_id) {
             return res.status(403).end();
         }
     })

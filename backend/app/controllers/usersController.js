@@ -2,12 +2,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
 import Item from '../models/item.js';
+import { getAuthorization } from '../helpers/APIHelper.js';
 
 
 export const getUserInfo = (req, res) => {
-    const { token } = req.headers;
-    const user = jwt.verify(token, process.env.TOKEN_KEY);
-    User.get(user.user_id, (err, data) => {
+    const { user_id } = getAuthorization(req.headers);
+    User.get(user_id, (err, data) => {
         if (err) {
             return res.status(500).send({message: "Cannot retrieve user info"})
         }
@@ -28,12 +28,10 @@ export const updateUserInfo = (req, res) => {
             message: "Content cannot be empty"
         })
     }
-    const { token } = req.headers;
-    const user = jwt.verify(token, process.env.TOKEN_KEY);
-    let userId = user.user_id
+    const { user_id } = getAuthorization(req.headers);
     let updatedInfo = req.body;
 
-    User.update(updatedInfo, userId, (err, data) => {
+    User.update(updatedInfo, user_id, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: err.message || "An error has occured while creating new user"
@@ -45,10 +43,9 @@ export const updateUserInfo = (req, res) => {
 }
 
 export const getItemList = (req, res) => {
-    const { token } = req.headers;
-    const user = jwt.verify(token, process.env.TOKEN_KEY);
+    const { user_id } = getAuthorization(req.headers);
 
-    Item.getActiveItemList(user.user_id, (err, data) => {
+    Item.getActiveItemList(user_id, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "An error has occured"
@@ -59,10 +56,8 @@ export const getItemList = (req, res) => {
 }
 
 export const getReminderList = (req, res) => {
-    const { token } = req.headers;
-    
-    const user = jwt.verify(token, process.env.TOKEN_KEY);
-    Item.getReminder(user.user_id, (err, data) => {
+    const { user_id } = getAuthorization(req.headers);
+    Item.getReminder(user_id, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "An error has occured"

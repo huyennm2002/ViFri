@@ -19,7 +19,7 @@ export const addItem = (req, res) => {
         image: imageUrl,
         quantity: req.body.quantity,
         unit: req.body.unit,
-        expiration: req.body.expiration,
+        expiration: new Date(req.body.expiration),
         grocery_product_id: null,
         user_id
     })

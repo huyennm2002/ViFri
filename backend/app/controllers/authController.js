@@ -45,6 +45,8 @@ export const createUser = (req, res) => {
                     const result = handleUploadFile(req.file, avatarKey);
                     if (result) {
                         User.update({...newUser, avatar: avatarKey}, data, (error, res) => {})
+                    } else {
+                        User.update(newUser, data, (error, res) => {})
                     }
                 }
                 return res.status(200).json(newUser);

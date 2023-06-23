@@ -9,14 +9,15 @@ export const addItem = (req, res) => {
         })
         return;
     }
-    let imageUrl = '';
+    let imageUrl = ''
     if (req.file) {
         imageUrl = handleUploadFile(req.file, req.file.filename);
     }
+    console.log(imageUrl);
     const { user_id } = getAuthorization(req.headers)
     const newItem = new Item({
         name: req.body.name,
-        image: imageUrl,
+        image: imageUrl ? req.file?.filename : '',
         quantity: req.body.quantity,
         unit: req.body.unit,
         expiration: new Date(req.body.expiration),
